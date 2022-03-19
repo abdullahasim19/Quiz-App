@@ -1,6 +1,9 @@
 package com.myapp.quizapp
 
 object Constants {
+    val USER_NAME:String="username"
+    val CORRECT_ANSWERS="correct"
+    val TOTAL_QUESTIONS="total"
     fun getQuestionsInfo(): ArrayList<QuestionsInfo> {
         val QuestionsInfosList = ArrayList<QuestionsInfo>()
 

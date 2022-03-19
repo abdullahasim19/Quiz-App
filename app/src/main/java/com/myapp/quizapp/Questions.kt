@@ -1,5 +1,6 @@
 package com.myapp.quizapp
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
@@ -14,9 +15,15 @@ class Questions : AppCompatActivity(),View.OnClickListener {
     var currentPosition=1
     var selectedOption:Int=0
     var correctAnswers:Int=0
+    var username:String?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_questions)
+        username=intent.getStringExtra(Constants.USER_NAME)
+
+
+        ql=Constants.getQuestionsInfo()
+
         setQuestion()
         var option1=findViewById<TextView>(R.id.o1)
         var option2=findViewById<TextView>(R.id.o2)
@@ -34,8 +41,6 @@ class Questions : AppCompatActivity(),View.OnClickListener {
     }
     private fun setQuestion()
     {
-        ql=Constants.getQuestionsInfo()
-
         defaultOption()
 
         var butt = findViewById<Button>(R.id.btnSubmit)
@@ -69,6 +74,7 @@ class Questions : AppCompatActivity(),View.OnClickListener {
         var qImage=findViewById<ImageView>(R.id.imgQuestion)
         qImage.setImageResource(currquestion.image)
     }
+    //reset options
     private fun defaultOption()
     {
         var options=ArrayList<TextView>()
@@ -118,7 +124,15 @@ class Questions : AppCompatActivity(),View.OnClickListener {
                         setQuestion()
                     }
                     else
-                        Toast.makeText(this,"You have Completed the quiz",Toast.LENGTH_SHORT).show()
+                    {
+                       // Toast.makeText(this, "You have Completed the quiz", Toast.LENGTH_SHORT)
+                          //  .show()
+                        var intent=Intent(this,Result_UI::class.java)
+                        intent.putExtra(Constants.USER_NAME,username)
+                        intent.putExtra(Constants.CORRECT_ANSWERS,correctAnswers)
+                        intent.putExtra(Constants.TOTAL_QUESTIONS,ql.size)
+                        startActivity(intent)
+                    }
                 }
                 else
                 {
@@ -144,6 +158,7 @@ class Questions : AppCompatActivity(),View.OnClickListener {
             }
         }
     }
+    //reset options and select an option
     private fun selectedOption(tv:TextView,num:Int)
     {
         defaultOption()
@@ -154,6 +169,7 @@ class Questions : AppCompatActivity(),View.OnClickListener {
         tv.setTypeface(tv.typeface,Typeface.BOLD)
         tv.background=ContextCompat.getDrawable(this,R.drawable.select_option)
     }
+    //view the wrong and right options
     private fun answerView(answer:Int,dView:Int)
     {
         var option1=findViewById<TextView>(R.id.o1)
