@@ -13,6 +13,7 @@ class Questions : AppCompatActivity(),View.OnClickListener {
     var ql=ArrayList<QuestionsInfo>()
     var currentPosition=1
     var selectedOption:Int=0
+    var correctAnswers:Int=0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_questions)
@@ -125,6 +126,9 @@ class Questions : AppCompatActivity(),View.OnClickListener {
                     if(q.correctAnswer!=selectedOption)
                     {
                         answerView(selectedOption,R.drawable.wrong_option)
+                    }
+                    else {
+                        correctAnswers++
                     }
                     answerView(q.correctAnswer,R.drawable.correct_option)
 

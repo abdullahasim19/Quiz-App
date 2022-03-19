@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QuizApp">
         <activity
+            android:name=".Result_UI"
+            android:exported="true" />
+        <activity
             android:name=".Questions"
             android:exported="true" />
         <activity
